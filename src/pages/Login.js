@@ -26,7 +26,7 @@ const Login = (props) => {
     <KeyboardAvoidingView behavior = "padding" style = {styles.scroll}>
       <View style= {styles.top}>
         <Icon
-          name="github-box" size={50}
+          name="github-box" size={100}
         />
         <Text style= {styles.title}>This is a login screen for Happy.inc powered by React-Native</Text>
       </View> 
