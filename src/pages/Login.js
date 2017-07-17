@@ -31,16 +31,14 @@ const Login = (props) => {
         <Text style= {styles.title}>This is a login screen for Happy.inc powered by React-Native</Text>
       </View> 
       <Container>
+        <LoginForm />
+      </Container>
+      <Container>
         <Button 
           label="Forgot Login/Pass"
           styles={{button: styles.alignRight, label: styles.label}} 
           onPress={() => navigate('ForgotPass')} />
       </Container>
-      <Container>
-        <LoginForm />
-      </Container>
-    
-      
     </KeyboardAvoidingView>
   );
 }

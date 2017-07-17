@@ -23,9 +23,10 @@ class helloWorld extends Component {
 }
 
 const SimpleApp = DrawerNavigator({
-  Home: { screen: App },
+  App: { screen: App },
   Login: { screen: Login },
   ForgotPass: { screen: ForgotPass },
+  Info: { screen: Fetch },
 });
 
 AppRegistry.registerComponent('helloWorld', () => SimpleApp);

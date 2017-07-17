@@ -64,7 +64,11 @@ const App = (props)  => {
         <Button
             onPress={() => navigate('Login')}
             title="Login"
-          />
+        />
+        <Button
+          onPress={() => navigate('Info')}
+          title="Info"
+        />
 
           
       </View>

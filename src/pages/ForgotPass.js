@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, KeyboardAvoidingView, ScrollView,StyleSheet,Text} from 'react-native';
+import { View, TextInput, KeyboardAvoidingView, ScrollView,StyleSheet,Text,TouchableOpacityd} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Container from '../components/Container';
@@ -30,6 +30,9 @@ export default class ForgotPass extends Component {
                             style={styles.input}
                     />
                 </Container>
+                <TouchableOpacity style={styles.buttonContainer}>
+                    <Text style={styles.buttonText}>Submit</Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }
@@ -48,5 +51,15 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 30
+    },
+        buttonContainer: {
+        backgroundColor: '#bdc3c7',
+        padding: 10 
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: 'white',
+        padding: 10,
+        fontWeight: '700'
     }
 });

@@ -8,6 +8,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { StackNavigator } from 'react-navigation';
+
 import Button from '../components/Button';
 import Label from '../components/Label';
 
@@ -38,7 +40,10 @@ export default class LoginForm extends Component {
                     style={styles.input}
                     
                 />
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => this.props.navigation.navigate('Fetch')}
+                >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
             </View>
