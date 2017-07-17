@@ -27,6 +27,7 @@ const Login = (props) => {
       <View style= {styles.top}>
         <Icon
           name="github-box" size={100}
+          style = {styles.icon}
         />
         <Text style= {styles.title}>This is a login screen for Happy.inc powered by React-Native</Text>
       </View> 
@@ -52,9 +53,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center'
   },
-  logo:{
-    width: 100,
-    height: 100,
+  icon: {
     alignSelf: 'center'
   },
   title:{
