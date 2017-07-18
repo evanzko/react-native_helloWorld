@@ -40,7 +40,7 @@ export default class LoginForm extends Component {
                     style={styles.input}
                     
                 />
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={() => this.props.navigation.navigate('Fetch')}
                 >
