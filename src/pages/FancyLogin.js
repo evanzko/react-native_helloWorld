@@ -23,6 +23,7 @@ import Label from '../components/Label';
 import { StackNavigator } from 'react-navigation';
 
 const{ width, height } = Dimensions.get('window');
+
 export default class FancyLogin extends Component {
     componentDidMount() { //method for changing the background image of the app
         let scrollValue = 0;
@@ -38,9 +39,10 @@ export default class FancyLogin extends Component {
                 scrollValue = scrollValue + width;   // width = screen width 
             }
             _scrollView.scrollTo({x: scrollValue})  //scroll to the next image
-        }, 20000);
+        }, 30000);
     }
     render() {
+        const { navigate } = this.props.navigation;
         return(
             <View>
                 <ScrollView 
@@ -101,7 +103,7 @@ export default class FancyLogin extends Component {
                             </View>
                     </KeyboardAvoidingView>        
                     <TouchableOpacity  
-                        onPress={() => Alert.alert('test message', "just checking haha")}
+                        onPress={() => navigate('Info')}
                         style = {styles.login}>
                         <Text style = {styles.text}>Login</Text>
                     </TouchableOpacity>
