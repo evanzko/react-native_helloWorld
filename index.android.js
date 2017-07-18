@@ -19,18 +19,16 @@ class helloWorld extends Component {
   render(){
     const { navigation } = this.props;
     return (
-      // <Fetch />
       <FancyLogin />
     );
   }
 }
 
 const SimpleApp = DrawerNavigator({
-  Home: { screen: ScrollView },
+  Home: { screen: FancyLogin },
   // Login: { screen: FancyLogin },
   ForgotPass: { screen: ForgotPass },
   Info: { screen: Fetch },
 });
 
 AppRegistry.registerComponent('helloWorld', () => SimpleApp);
-// AppRegistry.registerComponent('helloWorld', () => helloWorld);
