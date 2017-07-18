@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, KeyboardAvoidingView, ScrollView,StyleSheet,Text,TouchableOpacityd} from 'react-native';
+import { View, TextInput, KeyboardAvoidingView, ScrollView,StyleSheet,Text,TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Container from '../components/Container';
