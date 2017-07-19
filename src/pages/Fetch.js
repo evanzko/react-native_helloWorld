@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { ActivityIndicator, ListView, Text, View, Button, Alert, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-var productArray = [];
 export default class Fetch extends Component {
   constructor(props) {
       super(props);
-      var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.state = ({
-        dataSource: dataSource.cloneWithRows(productArray),
         isLoading: true
       });
   }
@@ -17,47 +14,50 @@ export default class Fetch extends Component {
     title: 'Info',
   }
 
-  getItems(callback) {
-    fetch('https://demo.cashvue.com/api/v1.0/login', {
+
+
+
+  componentDidMount(){
+    return fetch('https://demo.cashvue.com/api/v1.0/login',{
       method: 'POST',
       body: JSON.stringify(
         {email: "demo@cashvue.com", password: "demo1234"}
       )
-    })
+      })
       .then((response) => response.json())
-      .then((json) => callback(json))    
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson.user),
+          token: responseJson.token,
+          user: responseJson.user,
+          roles: responseJson.user.roles,
+        });
+      })
       .catch((error) => {
         console.error(error);
       })
   }
 
-  componentDidMount(){
-    this.getItems(function(json){
-      productArray = json;
-      this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(productArray),
-          isLoading: false,
-      });
-    }.bind(this));
-  }
-  renderRow(rowData, sectionID, rowID) {
-    return (
-        <TouchableHighlight underlayColor='#dddddd' style={{height:44}}>
-          <View>
-            <Text style={{fontSize: 20, color: '#000000'}} numberOfLines={1}>{rowData.display_string}</Text>
-            <View style={{height: 1, backgroundColor: '#dddddd'}}/>
-          </View>
-        </TouchableHighlight>
-    );
-  }
 
   render() {
-    var currentView = (this.state.isLoading)?<View/>:<ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} enableEmptySections={true}/> 
-
+    if(this.state.isLoading) {
+      return(
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return(
-      <View>
-        {currentView}
-      </View>   
+      <View style={{flex: 1, paddingTop: 20}}>
+        <Text>This is a page displaying user infomation that is mainly just for debugging</Text>
+        <Text>User infomation</Text>
+        <Text>Id = {this.state.user.id}</Text>
+        <Text>email = {this.state.user.email}</Text>
+        <Text>roles_id = {this.state.roles[0].id}</Text>
+        <Text>roles_name = {this.state.roles[0].name}</Text>        
+      </View>
     );
   }
 }

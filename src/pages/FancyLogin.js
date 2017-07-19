@@ -24,11 +24,12 @@ import { StackNavigator } from 'react-navigation';
 
 const{ width, height } = Dimensions.get('window');
 
+var timerId = null;
 export default class FancyLogin extends Component {
     componentDidMount() { //method for changing the background image of the app
         let scrollValue = 0;
         let counter = 0;
-        setInterval(function(){
+        timerId = setInterval(function(){
             //if the counter equals 2 ( the number of pictures loaded onto the app)
             //set the scrollValue back to the 0 so it can start at the first image again
             if(counter == 2){
@@ -41,8 +42,19 @@ export default class FancyLogin extends Component {
             _scrollView.scrollTo({x: scrollValue})  //scroll to the next image
         }, 30000);
     }
+
+    navigateFunction(){
+        clearInterval(timerId); //stop the picture sliding effect. Ran into an error when moving to 
+        //another screen if this isn't here
+        this.props.navigation.navigate('Info') //navigate to the screen for information
+    }
+
+    forgotFunction() {
+        clearInterval(timerId); //stop the picture sliding effect. Ran into an error when moving to 
+        //another screen if this isn't here
+        this.props.navigation.navigate('ForgotPass')
+    }
     render() {
-        const { navigate } = this.props.navigation;
         return(
             <View>
                 <ScrollView 
@@ -63,12 +75,12 @@ export default class FancyLogin extends Component {
                             style = {styles.logo}
                         />
                     </View>
-                    <Text style= {styles.forgot} onPress={() => Alert.alert('forgot password', 'Testing forgot Password')}>Forgot Password?</Text>
+                    <Text style= {styles.forgot} onPress={this.forgotFunction.bind(this)}>Forgot Password?</Text>
                     <KeyboardAvoidingView style={styles.container} behavior = "padding" keyboardVerticalOffset={35}>
                         <View style = {styles.inputBar}>
                             <MaterialIcons
                                 name = 'email'
-                                size = {50}
+                                size = {40}
                                 style = {styles.logo}
                             />
                             <TextInput
@@ -86,7 +98,7 @@ export default class FancyLogin extends Component {
                         <View style = {styles.inputBar}>
                             <FIcon 
                                 name = 'key'
-                                size = {50}
+                                size = {40}
                                 style = {styles.logo}
                             />
                             <TextInput
@@ -101,7 +113,7 @@ export default class FancyLogin extends Component {
                             </View>
                     </KeyboardAvoidingView>        
                     <TouchableOpacity  
-                        onPress={() => navigate('Info')}
+                        onPress={this.navigateFunction.bind(this)}
                         style = {styles.login}>
                         <Text style = {styles.text}>Login</Text>
                     </TouchableOpacity>
