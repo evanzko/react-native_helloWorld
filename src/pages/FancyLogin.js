@@ -55,7 +55,7 @@ export default class FancyLogin extends Component {
                     <Image source={require('../images/wheel.jpg')} style={{height, width}} />
                     <Image source={require('../images/splash.jpg')} style={{height, width}} /> 
                 </ScrollView>
-                <View style= {styles.backScreen}> 
+                <View style= {styles.backScreen}>
                     <View style = {styles.top}>
                         <FIcon 
                             name = 'cubes'
@@ -64,7 +64,7 @@ export default class FancyLogin extends Component {
                         />
                     </View>
                     <Text style= {styles.forgot} onPress={() => Alert.alert('forgot password', 'Testing forgot Password')}>Forgot Password?</Text>
-                    <KeyboardAvoidingView style={styles.container} behavior = "padding">
+                    <KeyboardAvoidingView style={styles.container} behavior = "padding" keyboardVerticalOffset={35}>
                         <View style = {styles.inputBar}>
                             <MaterialIcons
                                 name = 'email'
@@ -83,8 +83,6 @@ export default class FancyLogin extends Component {
                                 style={styles.input}
                             />
                         </View>
-                    </KeyboardAvoidingView>
-                    <KeyboardAvoidingView style={styles.container} behavior = "padding">
                         <View style = {styles.inputBar}>
                             <FIcon 
                                 name = 'key'
@@ -107,18 +105,6 @@ export default class FancyLogin extends Component {
                         style = {styles.login}>
                         <Text style = {styles.text}>Login</Text>
                     </TouchableOpacity>
-                    <View  //React-native version of hr in html
-                        style={{
-                            borderBottomColor: '#bdc3c7',
-                            borderBottomWidth: 1,
-                            width: 250,
-                            alignSelf: 'center'
-                        }}
-                    />
-                    <View style={styles.signup}>
-                        <Text style= {styles.text}>New here?</Text>
-                        <Text style= {styles.text}> Sign Up!</Text>  
-                    </View>
                 </View>
             </View>
         );
@@ -127,6 +113,9 @@ export default class FancyLogin extends Component {
 
 
 const styles = StyleSheet.create({
+    topLeft:{
+        alignSelf: 'flex-start',
+    },
     backScreen: { //style for the backscreen that lays on top of the images
         flex: 1,
         backgroundColor: 'rgba(0,0,0,.6)',
@@ -182,9 +171,4 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         paddingRight: 50,
     },
-    signup: { //style for the container keeping the signup text
-        flexDirection: 'row',
-        alignSelf: 'center'
-    }
-
 });
