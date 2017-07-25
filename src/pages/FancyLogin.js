@@ -20,12 +20,17 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Container from '../components/Container';
 import Label from '../components/Label';
+
 import { StackNavigator } from 'react-navigation';
+import { observable } from 'mobx';
 
 const{ width, height } = Dimensions.get('window');
 
 var timerId = null;
 export default class FancyLogin extends Component {
+    @observable user = '';
+    @observable pass = '';
+
     componentDidMount() { //method for changing the background image of the app
         let scrollValue = 0;
         let counter = 0;
@@ -40,7 +45,7 @@ export default class FancyLogin extends Component {
                 scrollValue = scrollValue + width;   // width = screen width 
             }
             _scrollView.scrollTo({x: scrollValue})  //scroll to the next image
-        }, 30000);
+        }, 5000);
     }
 
     navigateFunction(){
@@ -91,7 +96,7 @@ export default class FancyLogin extends Component {
                                 keyboardType= "email-address"
                                 autoCapitalize="none"
                                 autoCorrect = {false}
-                                onChange = {(user) => this.setState({user})}
+                                onChange = {(user) => this.user}
                                 style={styles.input}
                             />
                         </View>
@@ -107,7 +112,7 @@ export default class FancyLogin extends Component {
                                     secureTextEntry
                                     returnKeyType="go"
                                     ref={(input) => this.passwordInput = input}
-                                    onChange = {(pass) => this.setState({pass})}
+                                    onChange = {(pass) => this.pass}
                                     style={styles.input}                   
                                 />
                             </View>
