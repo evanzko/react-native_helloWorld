@@ -20,16 +20,24 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Container from '../components/Container';
 import Label from '../components/Label';
+import Store from '../store/LoginStore';
 
 import { StackNavigator } from 'react-navigation';
-import { observable } from 'mobx';
+import {observer} from 'mobx-react/native';
 
 const{ width, height } = Dimensions.get('window');
 
 var timerId = null;
+
+@observer
 export default class FancyLogin extends Component {
-    @observable user = '';
-    @observable pass = '';
+    constructor(props){
+        super(props);
+        this.state = {
+            user: '',
+            pass: ''
+        }
+    }
 
     componentDidMount() { //method for changing the background image of the app
         let scrollValue = 0;
@@ -51,6 +59,8 @@ export default class FancyLogin extends Component {
     navigateFunction(){
         clearInterval(timerId); //stop the picture sliding effect. Ran into an error when moving to 
         //another screen if this isn't here
+        Store.setCred([this.state.user,this.state.pass]) //set the fields in the store
+        this.reset() //reset the credentials after setting for security? I think I need to do it. 
         this.props.navigation.navigate('Info') //navigate to the screen for information
     }
 
@@ -58,6 +68,10 @@ export default class FancyLogin extends Component {
         clearInterval(timerId); //stop the picture sliding effect. Ran into an error when moving to 
         //another screen if this isn't here
         this.props.navigation.navigate('ForgotPass')
+    }
+
+    reset(){
+        this.setState({user: '', pass: ''})
     }
     render() {
         return(
@@ -96,7 +110,7 @@ export default class FancyLogin extends Component {
                                 keyboardType= "email-address"
                                 autoCapitalize="none"
                                 autoCorrect = {false}
-                                onChange = {(user) => this.user}
+                                onChange = {(user) => this.setState({user})}
                                 style={styles.input}
                             />
                         </View>
@@ -112,7 +126,7 @@ export default class FancyLogin extends Component {
                                     secureTextEntry
                                     returnKeyType="go"
                                     ref={(input) => this.passwordInput = input}
-                                    onChange = {(pass) => this.pass}
+                                    onChange = {(pass) => this.setState({pass})}
                                     style={styles.input}                   
                                 />
                             </View>
