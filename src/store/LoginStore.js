@@ -1,50 +1,43 @@
 import {observable, action } from 'mobx';
-import { Alert } from 'react-native';
+import { Alert, ListView } from 'react-native';
 
 class LoginStore {
-    @observable credentials = [];
+    @observable creds = { username : "", password: ""};
     @observable token;
     @observable loading = true;
-    @observable dataSource;
     @observable userInfo;
 
-    @action getCred(){
-        return this.credentials;
-    }
-    
-    @action setCred(item){
-        this.credentials = item
-    }
-
-    @action getToken(){
-        return this.token;
-    }
-    @action getToken(){
-        return this.userInfo;
+    setCred(item){
+        console.log(item);
+        for(i = 0; i < item.length; i++){
+            this.credentials.push(item[i]);
+        }
+        this.user = item[0];
+        this.pass = item[1];
+        console.log(this.credentials);
     }
 
-    @action getItems(){
+    getItems(){
+        console.log("user: ", this.user, "pass: ", this.pass);
         return fetch('https://demo.cashvue.com/api/v1.0/login',{
             method: 'POST',
             body: JSON.stringify(
-                {email: this.credentials[0], password: this.credentials[1]}
+                {email: this.user, password: this.pass}
             )
             })
             .then((response) => response.json())
             .then((responseJson) => {
-                let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                console.log(responseJson);
                 this.isLoading = false;
-                this.dataSource = ds.cloneWithRows(responseJson.user);
                 this.token = responseJson.token;
                 this.userInfo = responseJson.user;
+                this.loading = false;
             })
             .catch((error) => {
+                console.log(error);
+                this.loading = false;
                 Alert.alert('Connection error', 'Couldn\'t fetch the data.');
             })
-    }
-
-    @action getData(){
-        return this.dataSource;
     }
 
 }

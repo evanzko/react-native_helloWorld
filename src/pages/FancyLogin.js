@@ -59,7 +59,8 @@ export default class FancyLogin extends Component {
     navigateFunction(){
         clearInterval(timerId); //stop the picture sliding effect. Ran into an error when moving to 
         //another screen if this isn't here
-        Store.setCred([this.state.user,this.state.pass]) //set the fields in the store
+        console.log("THe timer id is cleared")
+        Store.setCred(["demo@cashvue.com","demo1234"]) //set the fields in the store
         this.reset() //reset the credentials after setting for security? I think I need to do it. 
         this.props.navigation.navigate('Info') //navigate to the screen for information
     }
@@ -127,6 +128,7 @@ export default class FancyLogin extends Component {
                                     returnKeyType="go"
                                     ref={(input) => this.passwordInput = input}
                                     onChange = {(pass) => this.setState({pass})}
+                                    onSubmitEditing={() => this.navigateFunction.bind(this)}
                                     style={styles.input}                   
                                 />
                             </View>
